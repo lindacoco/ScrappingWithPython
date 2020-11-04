@@ -21,24 +21,27 @@ def get_last_page():
     # max_page = pages.find("span").string 
   max_page = pages[-2].get_text(strip=True)
   #print(max_page)
-  return max_page
+  return int(max_page)
 
 
 def extract_job(html):
   title = html.find("h2",{"class":"mb4"}).find("a")["title"]
-  #find('span')["data-ga-label"]
-  # print(title)
-  company= html.find("h3",{"class":"fc-black-700"}).find("span")
- # print(company)
+#   #find('span')["data-ga-label"]
+#   # print(title)
+#   company= html.find("h3",{"class":"fc-black-700"}).find("span")
+#  # print(company)
   
-  if company is None :
-    company = company.string
-  else:
-    company = company.get_text(strip=True)
-  #print(company)
+#   if company is None :
+#     company = company.string
+#   else:
+#     company = company.get_text(strip=True)
+#   #print(company)
 
-  location= html.find("h3",{"class":"fc-black-700"}).find("span",{"class":"fc-black-500"}).string.strip()
-  #print(location)
+#   location= html.find("h3",{"class":"fc-black-700"}).find("span",{"class":"fc-black-500"}).string.strip()
+#   #print(location)
+  company, location =html.find("h3").find_all("span", recursive=False)
+  company = company.get_text(strip=True)
+  location = location.get_text(strip=True).strip('-').strip(" \r").strip("\n")
   
   link = html["data-jobid"]
   #print(link)
